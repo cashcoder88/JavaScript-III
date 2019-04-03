@@ -12,15 +12,47 @@
 // Principle 1
 
 // code example for Window Binding
+function random(thing) {
+    console.log(this);
+    return thing;
+}
+random("bus");
+
+// "this" is the window/console object
 
 // Principle 2
 
 // code example for Implicit Binding
 
+const someObject = {
+  greeting: 'Howdy',
+  sayHowdy: function(name) {
+    console.log(`${this.greeting} my name is ${name}`);
+    console.log(this);
+  }
+};
+someObject.sayHowdy('Ryan');
+
+// "this" is someObject in the above instance
+
 // Principle 3
 
 // code example for New Binding
 
+function FriendlyPerson(greeter) {
+    this.greeting = "Hi there ";
+    this.greeter = greeter;
+    this.speak = function() {
+        console.log(this.greeting + this.greeter);
+        console.log(this);
+    };
+}
+
+const cash = new FriendlyPerson("Cash"); //this would refer to new cash object created w/ friendly greeter
+const laura = new FriendlyPerson("Laura");
+
 // Principle 4
+
+cash.speak.call(laura); laura.speak.apply(cash);
 
 // code example for Explicit Binding
