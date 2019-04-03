@@ -49,10 +49,10 @@ function FriendlyPerson(greeter) {
 }
 
 const cash = new FriendlyPerson("Cash"); //this would refer to new cash object created w/ friendly greeter
-const laura = new FriendlyPerson("Laura");
+const dinesh = new FriendlyPerson("Dinesh");
 
 // Principle 4
 
-cash.speak.call(laura); laura.speak.apply(cash);
+cash.speak.call(dinesh); dinesh.speak.apply(cash);
 
 // code example for Explicit Binding
