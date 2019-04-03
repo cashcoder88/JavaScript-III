@@ -64,18 +64,52 @@ function Humanoid(attr3) {
     this.team = attr3.team;
     this.weapons = attr3.weapons;
     this.language = attr3.language;
-    GameObject.call(this, attr3);
+//  GameObject.call(this, attr3); IMPLIED From Inheritance
     CharacterStats.call(this, attr3);
 }
 
-Humanoid.prototype = Object.create(GameObject.prototype);
+//Humanoid.prototype = Object.create(GameObject.prototype); IMPLIED From Inheritance
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
     return `${this.name} offers a greeting in ${this.language}`;
 };
 
+//=============================================================================================
+// STRETCH STRETCH STRETCH STRETCH STRETCH STRETCH STRETCH STRETCH STRETCH STRETCH STRETCH
+// Stretch task: 
+  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+//=============================================================================================
 
+function Villian(attr4) {
+    Humanoid.call(this, attr4);
+}
+
+//Villian.prototype = Object.create(GameObject.prototype); IMPLIED From Inheritance
+//Villian.prototype = Object.create(CharacterStats.prototype);  IMPLIED From Inheritance
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.evilAttack = function(enemy) {
+      let damage = Math.floor(Math.random()*10);
+      enemy.healthPoints -= damage;
+      return `${this.name} just cast a dark spell!`;
+};
+
+function Hero(attr5) {
+    Humanoid.call(this, attr5);
+}
+
+//Hero.prototype = Object.create(GameObject.prototype); IMPLIED From Inheritance
+//Hero.prototype = Object.create(CharacterStats.prototype);  IMPLIED From Inheritance
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.lightAttack = function(enemy) {
+      let damage = Math.floor(Math.random()*12);
+      enemy.healthPoints -= damage;
+      return `${this.name} just struck with his Lightbringer!`;
+};
 
 
 /*
@@ -137,6 +171,40 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const warlock = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    healthPoints: 40,
+    name: 'Sinister',
+    team: 'None',
+    weapons: [
+      'Staff Of Evil',
+      'Demon',
+    ],
+    language: 'Reizq',
+  });
+
+const paladin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    healthPoints: 35,
+    name: 'Prosper',
+    team: 'Team Of Justice and Good',
+    weapons: [
+      'The LightBringer',
+      'Dragon Shield',
+    ],
+    language: 'Common Tongue',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -147,8 +215,10 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
-
+  console.log(warlock.evilAttack(paladin));
+  console.log(`Prosper now has ${paladin.healthPoints} health points`);
+  console.log(paladin.lightAttack(warlock));
+  console.log(`Sinister now has ${warlock.healthPoints} health points`);
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
